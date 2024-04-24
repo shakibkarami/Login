@@ -2,6 +2,7 @@ package com.task.login;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -14,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.task.login.presentation.viewmodel.LoginViewModel;
+import com.task.login.util.Encryption;
 
 public class LoginActivity  extends AppCompatActivity {
 
@@ -21,6 +23,7 @@ public class LoginActivity  extends AppCompatActivity {
     private EditText passwordEditText;
     private Button loginButton;
     private LoginViewModel viewModel;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,8 +51,8 @@ public class LoginActivity  extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
 
             } else {
-                Snackbar.make(getCurrentFocus(), loginState.getErrorMessage(), Snackbar.LENGTH_SHORT)
-                        .show();
+//                Snackbar.make(getCurrentFocus(), loginState.getErrorMessage(), Snackbar.LENGTH_SHORT)
+//                        .show();
             }
         });
 
