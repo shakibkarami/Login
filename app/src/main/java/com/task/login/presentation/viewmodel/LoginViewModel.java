@@ -51,7 +51,16 @@ public class LoginViewModel extends ViewModel {
     }
 
     private boolean processInputValidationType(InputValidationType result){
-        // TODO: complete this function
+        if (result == InputValidationType.EmptyInput){
+            loginState.setValue(new LoginState(false, false, true, "Inputs can't be empty"));
+            return false;
+        }
+
+        if (result == InputValidationType.ShortPassword) {
+            loginState.setValue(new LoginState(false, false, true, "Password should be at least 8 characters"));
+            return false;
+        }
+
         return true;
     }
 
