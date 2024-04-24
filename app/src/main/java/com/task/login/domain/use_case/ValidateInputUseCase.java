@@ -4,7 +4,7 @@ import com.task.login.domain.model.InputValidationType;
 
 public class ValidateInputUseCase {
 
-    private Enum<InputValidationType> invoke(String username, String password){
+    public InputValidationType invoke(String username, String password){
 
         if (username.isEmpty() || password.isEmpty()) return InputValidationType.EmptyInput;
 
