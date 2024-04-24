@@ -1,10 +1,14 @@
 package com.task.login.presentation.viewmodel;
 
+import android.app.Application;
+
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
+import com.task.login.data.UserRepositoryImpl;
 import com.task.login.domain.model.InputValidationType;
+import com.task.login.domain.repository.UserRepository;
 import com.task.login.domain.use_case.LoginUseCase;
 import com.task.login.domain.use_case.ValidateInputUseCase;
 import com.task.login.presentation.state.LoginState;
@@ -13,16 +17,18 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-public class LoginViewModel extends ViewModel {
-
-    private final LoginUseCase loginUseCase;
+public class LoginViewModel extends AndroidViewModel {
 
     private MutableLiveData<LoginState> loginState = new MutableLiveData<>();
     private CompositeDisposable disposable = new CompositeDisposable();
     private ValidateInputUseCase validateInputUseCase = new ValidateInputUseCase();
 
-    public LoginViewModel(LoginUseCase loginUseCase) {
-        this.loginUseCase = loginUseCase;
+    UserRepository userRepository = new UserRepositoryImpl();
+    LoginUseCase loginUseCase = new LoginUseCase(userRepository);
+
+
+    public LoginViewModel(Application application) {
+        super(application);
     }
 
     public LiveData<LoginState> getLoginState() {

@@ -6,14 +6,20 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
+
+import com.task.login.presentation.viewmodel.LoginViewModel;
 
 public class LoginActivity  extends AppCompatActivity {
 
     private EditText usernameEditText;
     private EditText passwordEditText;
     private Button loginButton;
+    private LoginViewModel viewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -21,14 +27,27 @@ public class LoginActivity  extends AppCompatActivity {
 
         setContentView(R.layout.activity_login);
 
+        viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+
         usernameEditText = findViewById(R.id.usernameEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
         loginButton = findViewById(R.id.loginButton);
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                hideKeyboard();
+        loginButton.setOnClickListener(view -> {
+            hideKeyboard();
+            String username = usernameEditText.getText().toString();
+            String password = passwordEditText.getText().toString();
+            viewModel.login(username, password);
+        });
+
+        viewModel.getLoginState().observe(this, loginState -> {
+            if (loginState.isSuccess()) {
+                // TODO: implement onSuccess
+                Toast.makeText(this,"Success.",
+                        Toast.LENGTH_LONG).show();
+
+            } else {
+                // TODO: Show Error
             }
         });
 
