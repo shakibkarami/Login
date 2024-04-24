@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.task.login.presentation.viewmodel.LoginViewModel;
 
 public class LoginActivity  extends AppCompatActivity {
@@ -47,7 +48,8 @@ public class LoginActivity  extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
 
             } else {
-                // TODO: Show Error
+                Snackbar.make(getCurrentFocus(), loginState.getErrorMessage(), Snackbar.LENGTH_SHORT)
+                        .show();
             }
         });
 
