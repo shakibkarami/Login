@@ -1,6 +1,7 @@
 package com.task.login.data;
 
 import com.task.login.domain.repository.UserRepository;
+import com.task.login.util.Encryption;
 
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
@@ -9,6 +10,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     private static final String VALID_USERNAME = "username";
     private static final String VALID_PASSWORD = "password";
+    Encryption encryption = Encryption.getInstance();
 
     @Override
     public Completable login(String username, String password) {
@@ -29,6 +31,6 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     private boolean isValidCredentials(String username, String password) {
-        return VALID_USERNAME.equals(username) && VALID_PASSWORD.equals(password);
+        return VALID_USERNAME.equals(encryption.decrypt(encryption.encrypt(username))) && VALID_PASSWORD.equals(encryption.decrypt(encryption.encrypt(password)));
     }
 }
