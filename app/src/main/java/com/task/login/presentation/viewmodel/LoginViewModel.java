@@ -37,13 +37,13 @@ public class LoginViewModel extends AndroidViewModel {
 
     public void login(String username, String password) {
         if (checkInputValidation(username, password)) {
-            loginState.setValue(new LoginState(true, false, false, null));
+            loginState.setValue(new LoginState(true, false, false, null, null));
             disposable.add(loginUseCase.login(username, password)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
-                            () -> loginState.setValue(new LoginState(false, true, false, null)),
-                            throwable -> loginState.setValue(new LoginState(false, false, true, "Invalid Username or password"))
+                            token  -> loginState.setValue(new LoginState(false, true, false, null, token.toString())),
+                            throwable -> loginState.setValue(new LoginState(false, false, true, "Invalid Username or password", null))
                     ));
         }
     }
@@ -58,12 +58,12 @@ public class LoginViewModel extends AndroidViewModel {
 
     private boolean processInputValidationType(InputValidationType result){
         if (result == InputValidationType.EmptyInput){
-            loginState.setValue(new LoginState(false, false, true, "Inputs can't be empty"));
+            loginState.setValue(new LoginState(false, false, true, "Inputs can't be empty", null));
             return false;
         }
 
         if (result == InputValidationType.ShortPassword) {
-            loginState.setValue(new LoginState(false, false, true, "Password should be at least 8 characters"));
+            loginState.setValue(new LoginState(false, false, true, "Password should be at least 8 characters", null));
             return false;
         }
 

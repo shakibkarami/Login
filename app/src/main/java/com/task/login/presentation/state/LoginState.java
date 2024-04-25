@@ -5,12 +5,14 @@ public class LoginState {
     private boolean isSuccess;
     private boolean isError;
     private String errorMessage;
+    private String token;
 
-    public LoginState(boolean isLoading, boolean isSuccess, boolean isError, String errorMessage) {
+    public LoginState(boolean isLoading, boolean isSuccess, boolean isError, String errorMessage, String token) {
         this.isLoading = isLoading;
         this.isSuccess = isSuccess;
         this.isError = isError;
         this.errorMessage = errorMessage;
+        this.token = token;
     }
 
     public boolean isLoading() {
@@ -28,4 +30,10 @@ public class LoginState {
     public String getErrorMessage() {
         return errorMessage;
     }
+
+    public String getToken() {
+        return token;
+    }
+
+
 }
