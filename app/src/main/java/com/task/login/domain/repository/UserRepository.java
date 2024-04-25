@@ -1,7 +1,8 @@
 package com.task.login.domain.repository;
 
-import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.Single;
 
 public interface UserRepository {
-    Completable login(String username, String password);
+    @NonNull Single<Object> login(String username, String password);
 }
