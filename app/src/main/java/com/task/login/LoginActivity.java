@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -17,11 +18,14 @@ import com.google.android.material.snackbar.Snackbar;
 import com.task.login.presentation.viewmodel.LoginViewModel;
 import com.task.login.util.Encryption;
 
+import java.util.Objects;
+
 public class LoginActivity  extends AppCompatActivity {
 
     private EditText usernameEditText;
     private EditText passwordEditText;
     private Button loginButton;
+    private ConstraintLayout mainLayout;
     private LoginViewModel viewModel;
 
 
@@ -36,6 +40,7 @@ public class LoginActivity  extends AppCompatActivity {
         usernameEditText = findViewById(R.id.usernameEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
         loginButton = findViewById(R.id.loginButton);
+        mainLayout = findViewById(R.id.mainLayout);
 
         loginButton.setOnClickListener(view -> {
             hideKeyboard();
@@ -51,8 +56,8 @@ public class LoginActivity  extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
 
             } else {
-//                Snackbar.make(getCurrentFocus(), loginState.getErrorMessage(), Snackbar.LENGTH_SHORT)
-//                        .show();
+                Snackbar.make(mainLayout, loginState.getErrorMessage(), Snackbar.LENGTH_SHORT)
+                        .show();
             }
         });
 

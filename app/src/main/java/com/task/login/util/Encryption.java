@@ -9,8 +9,23 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 public class Encryption {
+    private static Encryption instance;
 
     public final String privateKey = "Pr1vat3k3y1s00!?";
+
+    private Encryption() {
+    }
+
+    public static Encryption getInstance() {
+        if (instance == null) {
+            synchronized (Encryption.class) {
+                if (instance == null) {
+                    instance = new Encryption();
+                }
+            }
+        }
+        return instance;
+    }
 
     public String encrypt(String value) {
         try {
