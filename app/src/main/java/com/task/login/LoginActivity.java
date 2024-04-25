@@ -14,6 +14,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.android.material.snackbar.Snackbar;
 import com.task.login.presentation.viewmodel.LoginViewModel;
 import com.task.login.util.Encryption;
@@ -28,6 +29,8 @@ public class LoginActivity  extends AppCompatActivity {
     private ConstraintLayout mainLayout;
     private LoginViewModel viewModel;
 
+    private LinearProgressIndicator progressIndicator;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,7 @@ public class LoginActivity  extends AppCompatActivity {
         passwordEditText = findViewById(R.id.passwordEditText);
         loginButton = findViewById(R.id.loginButton);
         mainLayout = findViewById(R.id.mainLayout);
+        progressIndicator = findViewById(R.id.progressIndicator);
 
         loginButton.setOnClickListener(view -> {
             hideKeyboard();
@@ -59,6 +63,13 @@ public class LoginActivity  extends AppCompatActivity {
                     Snackbar.make(mainLayout, loginState.getErrorMessage(), Snackbar.LENGTH_SHORT)
                             .show();
                 }
+            }
+            if (loginState.isLoading()){
+                progressIndicator.setVisibility(View.VISIBLE);
+                loginButton.setEnabled(false);
+            } else {
+                progressIndicator.setVisibility(View.INVISIBLE);
+                loginButton.setEnabled(true);
             }
         });
 

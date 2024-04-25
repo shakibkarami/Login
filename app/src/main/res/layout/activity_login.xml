@@ -105,7 +105,16 @@
                 android:layout_marginTop="24dp"
                 android:text="@string/action_sign_in_short" />
 
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/progressIndicator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                android:indeterminate="true" />
+
         </LinearLayout>
+
+
 
     </androidx.cardview.widget.CardView>
 
