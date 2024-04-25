@@ -1,6 +1,7 @@
 package com.task.login;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -36,8 +37,6 @@ public class LoginActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-
         setContentView(R.layout.activity_login);
 
         viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
@@ -57,9 +56,9 @@ public class LoginActivity extends AppCompatActivity {
 
         viewModel.getLoginState().observe(this, loginState -> {
             if (loginState.isSuccess()) {
-                // TODO: implement onSuccess
-                Toast.makeText(this,"Success.",
-                        Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
             } else {
                 if (!loginState.isLoading()) {
                     Snackbar.make(mainLayout, loginState.getErrorMessage(), Snackbar.LENGTH_SHORT)
@@ -74,7 +73,6 @@ public class LoginActivity extends AppCompatActivity {
                 loginButton.setEnabled(true);
             }
         });
-
     }
 
     public void hideKeyboard() {
