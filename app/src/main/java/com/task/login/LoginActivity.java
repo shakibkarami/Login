@@ -54,10 +54,11 @@ public class LoginActivity  extends AppCompatActivity {
                 // TODO: implement onSuccess
                 Toast.makeText(this,"Success.",
                         Toast.LENGTH_LONG).show();
-
             } else {
-                Snackbar.make(mainLayout, loginState.getErrorMessage(), Snackbar.LENGTH_SHORT)
-                        .show();
+                if (!loginState.isLoading()) {
+                    Snackbar.make(mainLayout, loginState.getErrorMessage(), Snackbar.LENGTH_SHORT)
+                            .show();
+                }
             }
         });
 

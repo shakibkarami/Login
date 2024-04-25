@@ -43,7 +43,7 @@ public class LoginViewModel extends AndroidViewModel {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
                             () -> loginState.setValue(new LoginState(false, true, false, null)),
-                            throwable -> loginState.setValue(new LoginState(false, false, true, "Login failed"))
+                            throwable -> loginState.setValue(new LoginState(false, false, true, "Invalid Username or password"))
                     ));
         }
     }
