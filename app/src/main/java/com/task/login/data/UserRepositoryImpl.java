@@ -67,7 +67,7 @@ public class UserRepositoryImpl implements UserRepository {
             }
 
             if (isValidCredentials(username, password)) {
-                TokenResponse tokenResponse = new TokenResponse(hardcodedToken);
+                TokenResponse tokenResponse = new TokenResponse(encryption.encrypt(hardcodedToken));
                 String token = tokenResponse.getToken();
                 emitter.onSuccess(token);
             } else {

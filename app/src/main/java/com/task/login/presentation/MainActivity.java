@@ -6,10 +6,12 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.task.login.R;
+import com.task.login.util.Encryption;
 
 public class MainActivity extends AppCompatActivity {
 
     TextView tokenTextView;
+    Encryption encryption = Encryption.getInstance();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -18,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
         tokenTextView = findViewById(R.id.tokenTextView);
         String token = getIntent().getStringExtra("token");
-        tokenTextView.setText(token);
+        tokenTextView.setText(encryption.decrypt(token));
 
     }
 }
