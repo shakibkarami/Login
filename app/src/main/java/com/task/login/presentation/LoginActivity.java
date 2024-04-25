@@ -1,27 +1,22 @@
-package com.task.login;
+package com.task.login.presentation;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.android.material.snackbar.Snackbar;
+import com.task.login.R;
+import com.task.login.presentation.state.LoginState;
 import com.task.login.presentation.viewmodel.LoginViewModel;
-import com.task.login.util.Encryption;
-
-import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -56,7 +51,9 @@ public class LoginActivity extends AppCompatActivity {
 
         viewModel.getLoginState().observe(this, loginState -> {
             if (loginState.isSuccess()) {
+                String token = getTokenFromLoginState(loginState);
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                intent.putExtra("token", token);
                 startActivity(intent);
                 finish();
             } else {
@@ -80,6 +77,14 @@ public class LoginActivity extends AppCompatActivity {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         } catch(Exception ignored) {
+        }
+    }
+
+    private String getTokenFromLoginState(LoginState loginState) {
+        if (loginState.isSuccess()) {
+            return loginState.getToken();
+        } else {
+            return null;
         }
     }
 
